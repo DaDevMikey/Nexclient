@@ -18,6 +18,3 @@ public class FreeLookMod extends Mod {
 		this.disabledOnHypixel = disabledOnHypixel;
 	}
 }
-		super("FreeLook", "Allows free camera look around the player", Category.RENDER);
-	}
-}

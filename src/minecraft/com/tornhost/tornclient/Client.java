@@ -7,14 +7,12 @@ public class Client {
 		return INSTANCE;
 	}
 	
-	// Client info
-	public final String name = "TornClient";
+	public final String name = "NexClient";
 	public final String version = "1.0.0";
-	public final String author = "atticl";
+	public final String author = "NexTeam";
 	
 	public ModManager modManager;
 	
-	// Run when game starts
 	public void startup() {
 		System.out.println("=======================================");
         System.out.println("Starting " + name + " v" + version + " by " + author);
