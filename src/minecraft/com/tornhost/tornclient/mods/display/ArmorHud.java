@@ -1,7 +1,6 @@
 package com.tornhost.tornclient.mods.display;
 
 import com.tornhost.tornclient.mods.Mod;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.item.ItemStack;
 
 public class ArmorHud extends Mod {
@@ -14,7 +13,6 @@ public class ArmorHud extends Mod {
 	@Override
 	public void onRender() {
 		if (mc.thePlayer == null) return;
-		ScaledResolution sr = new ScaledResolution(mc);
 		int x = getHudX();
 		int y = getHudY();
 		for (int i = 3; i >= 0; i--) {
