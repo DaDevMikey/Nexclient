@@ -37,7 +37,7 @@ NexClient ships with **35 built-in mods** across six categories, a modern mod se
 | FullBright | Removes all darkness from the game |
 | Block Overlay | Custom block selection overlay |
 | Crosshair | Custom crosshair |
-| 1.7 Animation | 1.7-style combat animations |
+| 1.7 Animations | 1.7-style combat animations |
 | FreeLook | Free camera look (disabled on Hypixel) |
 | Time Changer | Changes the visual time of day |
 | Motion Blur | Adds a motion blur effect |
