@@ -900,7 +900,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
         }
         
         // Client heartbeat
-        com.tornhost.tornclient.Client.getInstance().modManager.update();
+        com.nexclient.client.Client.getInstance().modManager.update();
         
         super.onLivingUpdate(); // Vanilla code
 

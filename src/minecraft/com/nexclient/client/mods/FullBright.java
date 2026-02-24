@@ -1,4 +1,4 @@
-package com.tornhost.tornclient.mods;
+package com.nexclient.client.mods;
 
 public class FullBright extends Mod {
 	
@@ -6,7 +6,7 @@ public class FullBright extends Mod {
 	private float oldGamma;
 	
 	public FullBright() {
-		super("FullBright", "Removes all darkness from the game.");
+		super("FullBright", "Removes all darkness from the game.", Category.RENDER);
 		this.setEnabled(true); // Hard code enabled for testing
 	}
 	

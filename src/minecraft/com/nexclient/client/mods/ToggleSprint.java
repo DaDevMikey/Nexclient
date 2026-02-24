@@ -1,0 +1,16 @@
+package com.nexclient.client.mods;
+
+public class ToggleSprint extends Mod {
+
+	public ToggleSprint() {
+		super("ToggleSprint", "Keeps you sprinting automatically", Category.PLAYER);
+	}
+	
+	@Override
+	public void onUpdate() {
+		if (mc.thePlayer == null) return;
+		if (mc.thePlayer.movementInput.moveForward >= 0.8F && !mc.thePlayer.isSneaking() && !mc.thePlayer.isUsingItem() && !mc.thePlayer.isCollidedHorizontally && mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F) {
+			mc.thePlayer.setSprinting(true);
+		}
+	}
+}
