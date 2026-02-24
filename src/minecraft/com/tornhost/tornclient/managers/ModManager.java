@@ -1,4 +1,4 @@
-package com.tornhost.tornclient;
+package com.tornhost.tornclient.managers;
 
 import java.util.ArrayList;
 import java.util.List;

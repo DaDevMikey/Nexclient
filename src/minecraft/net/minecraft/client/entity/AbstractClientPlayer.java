@@ -1,6 +1,8 @@
 package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
+import com.tornhost.tornclient.Client;
+
 import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -74,10 +76,24 @@ public abstract class AbstractClientPlayer extends EntityPlayer
 
     public ResourceLocation getLocationCape()
     {
-        NetworkPlayerInfo networkplayerinfo = this.getPlayerInfo();
-        return networkplayerinfo == null ? null : networkplayerinfo.getLocationCape();
+        String uuid = this.getUniqueID().toString();
+        
+        String capeName = com.tornhost.tornclient.Client.getInstance().cosmeticManager.getCape(uuid);
+        
+        if (!capeName.equals("none")) {
+            
+            ResourceLocation downloadedCape = com.tornhost.tornclient.Client.getInstance().cosmeticManager.getCapeTexture(capeName);
+            
+            if (downloadedCape != null) {
+                return downloadedCape; 
+            }
+            
+        } else {
+            com.tornhost.tornclient.Client.getInstance().cosmeticManager.fetchCosmetics(uuid);
+        }
+        
+        return this.playerInfo == null ? null : this.playerInfo.getLocationCape();
     }
-
     public static ThreadDownloadImageData getDownloadImageSkin(ResourceLocation resourceLocationIn, String username)
     {
         TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();

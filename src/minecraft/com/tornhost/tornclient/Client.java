@@ -1,5 +1,8 @@
 package com.tornhost.tornclient;
 
+import com.tornhost.tornclient.managers.CosmeticManager;
+import com.tornhost.tornclient.managers.ModManager;
+
 public class Client {
 	private static final Client INSTANCE = new Client();
 	
@@ -13,6 +16,7 @@ public class Client {
 	public final String author = "atticl";
 	
 	public ModManager modManager;
+	public CosmeticManager cosmeticManager;
 	
 	// Run when game starts
 	public void startup() {
@@ -21,5 +25,6 @@ public class Client {
         System.out.println("=======================================");
         
         modManager = new ModManager();
+        cosmeticManager = new CosmeticManager();
 	}
 }
