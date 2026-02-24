@@ -3,7 +3,7 @@ package com.tornhost.tornclient.mods;
 public class ToggleSprint extends Mod {
 
 	public ToggleSprint() {
-		super("ToggleSprint", "Keeps you sprinting automatically");
+		super("ToggleSprint", "Keeps you sprinting automatically", Category.PLAYER);
 	}
 	
 	@Override
