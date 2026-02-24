@@ -48,7 +48,7 @@ class Error(Exception):
 
 class CalledProcessError(Error):
     def __init__(self, returncode, cmd, output=None):
-        super(CalledProcessError, self).__init__()
+        super().__init__()
         self.returncode = returncode
         self.cmd = cmd
         self.output = output
@@ -136,7 +136,7 @@ def truncate(text, length):
 def csv_header(csvfile):
     fieldnames = []
     if os.path.isfile(csvfile):
-        with open(csvfile, 'rb') as fh:
+        with open(csvfile, 'r', newline='') as fh:
             csvreader = csv.DictReader(fh)
             fieldnames = csvreader.fieldnames
     return set(fieldnames)
@@ -154,9 +154,9 @@ class Commands(object):
         """Read the version configuration file and return a full version string"""
         full_version = None
         try:
-            config = configparser.SafeConfigParser()
+            config = configparser.ConfigParser()
             with open(os.path.normpath(cls._version_config)) as fh:
-                config.readfp(fh)
+                config.read_file(fh)
             data_version = config.get('VERSION', 'MCPVersion')
             client_version = config.get('VERSION', 'ClientVersion')
             server_version = config.get('VERSION', 'ServerVersion')
@@ -209,9 +209,9 @@ class Commands(object):
 
     def getVersions(self):
         try:
-            config = configparser.SafeConfigParser()
+            config = configparser.ConfigParser()
             with open(os.path.normpath(self._version_config)) as fh:
-                config.readfp(fh)
+                config.read_file(fh)
             client_version = config.get('VERSION', 'ClientVersion')
             server_version = config.get('VERSION', 'ServerVersion')
             return client_version, server_version
@@ -433,10 +433,10 @@ class Commands(object):
 
     def readconf(self, workdir, json):
         """Read the configuration file to setup some basic paths"""
-        config = configparser.SafeConfigParser()
+        config = configparser.ConfigParser()
         try:
             with open(os.path.normpath(self._default_config)) as fh:
-                config.readfp(fh)
+                config.read_file(fh)
             if self.conffile is not None:
                 config.read(os.path.normpath(self.conffile))
         except IOError:
@@ -1015,20 +1015,19 @@ class Commands(object):
             md5lcldict[cur_file] = (md5_file, os.stat(cur_file).st_mtime)
         try:
             update_url = self.updateurl + 'mcp.md5'
-            listfh = urllib.request.urlopen(update_url)
-            if listfh.getcode() != 200:
-                return []
-            md5srvlist = listfh.readlines()
+            with urllib.request.urlopen(update_url) as listfh:
+                if listfh.status != 200:
+                    return []
+                md5srvlist = listfh.read().decode('utf-8').splitlines()
             md5srvdict = {}
+            for entry in md5srvlist:
+                parts = entry.split()
+                md5srvdict[parts[0]] = (parts[1], float(parts[2]), parts[3])
         except IOError:
             return []
 
-        # HINT: Each remote entry is of the form dict[filename]=(md5,modificationtime,action)
-        for entry in md5srvlist:
-            md5srvdict[entry.split()[0]] = (entry.split()[1], float(entry.split()[2]), entry.split()[3])
-
         results = []
-        for key, value in list(md5srvdict.items()):
+        for key, value in md5srvdict.items():
             cur_file = os.path.normpath(key)
             # HINT: If the remote entry is not in the local table, append
             if cur_file not in md5lcldict:
@@ -1626,7 +1625,7 @@ class Commands(object):
         if not quiet:
             self.logger.debug("runcmd: '%s'", truncate(forkcmd, 500))
             self.logger.debug("shlex: %s", truncate(str(forklist), 500))
-        process = subprocess.Popen(forklist, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=-1)
+        process = subprocess.Popen(forklist, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=-1, universal_newlines=True)
         output, _ = process.communicate()
         if log_file is not None:
             with open(log_file, 'w') as log:
@@ -1647,7 +1646,7 @@ class Commands(object):
             self.logger.debug("runmc: '%s'", truncate(forkcmd, 500))
             self.logger.debug("shlex: %s", truncate(str(forklist), 500))
         output = ''
-        process = subprocess.Popen(forklist, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1)
+        process = subprocess.Popen(forklist, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True)
         while process.poll() is None:
             line = process.stdout.readline()
             if line:
@@ -1738,20 +1737,20 @@ class Commands(object):
 
         # HINT: We read the relevant CSVs
         names = {'methods': {}, 'fields': {}, 'params': {}}
-        with open(self.csvmethods, 'rb') as fh:
+        with open(self.csvmethods, 'r', newline='') as fh:
             methodsreader = csv.DictReader(fh)
             for row in methodsreader:
                 if int(row['side']) == side or int(row['side']) == 2:
                     if row['name'] != row['searge']:
                         names['methods'][row['searge']] = row['name']
-        with open(self.csvfields, 'rb') as fh:
+        with open(self.csvfields, 'r', newline='') as fh:
             fieldsreader = csv.DictReader(fh)
             for row in fieldsreader:
                 if int(row['side']) == side or int(row['side']) == 2:
                     if row['name'] != row['searge']:
                         names['fields'][row['searge']] = row['name']
         if self.has_param_csv:
-            with open(self.csvparams, 'rb') as fh:
+            with open(self.csvparams, 'r', newline='') as fh:
                 paramsreader = csv.DictReader(fh)
                 for row in paramsreader:
                     if int(row['side']) == side or int(row['side']) == 2:
@@ -1806,7 +1805,7 @@ class Commands(object):
 
         # HINT: We read the relevant CSVs
         mapping = {'methods': {}, 'fields': {}, 'params': {}}
-        with open(self.csvnewids, 'rb') as fh:
+        with open(self.csvnewids, 'r', newline='') as fh:
             in_csv = csv.DictReader(fh)
             for line in in_csv:
                 in_id = None
