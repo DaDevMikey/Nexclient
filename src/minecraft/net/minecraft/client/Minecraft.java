@@ -48,7 +48,7 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMemoryErrorScreen;
-import com.tornhost.tornclient.gui.NexMainMenu;
+import com.nexclient.client.gui.NexMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSleepMP;
 import net.minecraft.client.gui.GuiYesNo;
@@ -559,7 +559,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         GlStateManager.viewport(0, 0, this.displayWidth, this.displayHeight);
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
         this.checkGLError("Post startup");
-        com.tornhost.tornclient.Client.getInstance().startup();
+        com.nexclient.client.Client.getInstance().startup();
         this.ingameGUI = new GuiIngame(this);
 
         if (this.serverName != null)
@@ -618,7 +618,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("TornClient 1.8.8");
+        Display.setTitle("NexClient 1.8.8");
 
         try
         {
