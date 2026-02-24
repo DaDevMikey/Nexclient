@@ -24,6 +24,8 @@ conf/*.srg
 
 # Compiled files
 *.class
+*.pyc
+__pycache__/
 
 # Crash logs
 crash-reports/

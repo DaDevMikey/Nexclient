@@ -1,2 +1,2 @@
 #!/bin/bash
-python runtime/decompile.py "$@"
+python -m runtime.decompile "$@"
