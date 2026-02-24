@@ -1,2 +1,2 @@
 #!/bin/bash
-python runtime/reobfuscate.py --srgnames "$@"
+python -m runtime.reobfuscate --srgnames "$@"
