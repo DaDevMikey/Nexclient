@@ -1833,6 +1833,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 if (i1 <= 200L)
                 {
                     int j = Mouse.getEventDWheel();
+                    
+                    // Zoom scroll
+                    if (com.tornhost.tornclient.mods.Zoom.isZooming) {
+                    	j = 0;
+                    }
 
                     if (j != 0)
                     {
@@ -1908,7 +1913,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
                 if (Keyboard.getEventKeyState())
                 {
-                    if (k == 62 && this.entityRenderer != null)
+                	
+                	// Custom gui
+                	if (Keyboard.getEventKey() == Keyboard.KEY_RSHIFT) {
+                		this.displayGuiScreen(new com.tornhost.tornclient.ui.ClickGUI());
+                	}
+                	
+                    if (k == 62 && this.entityRenderer != null) // Vanilla code
                     {
                         this.entityRenderer.switchUseShader();
                     }

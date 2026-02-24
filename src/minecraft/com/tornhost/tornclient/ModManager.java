@@ -13,6 +13,8 @@ public class ModManager {
 		// Register every mod
 		mods.add(new com.tornhost.tornclient.mods.ToggleSprint());
 		mods.add(new com.tornhost.tornclient.mods.FullBright());
+		mods.add(new com.tornhost.tornclient.mods.Zoom());
+		mods.add(new com.tornhost.tornclient.mods.FPS());
 	}
 	
 	// Returns the full list of mods

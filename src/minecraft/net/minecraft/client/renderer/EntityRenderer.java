@@ -575,8 +575,13 @@ public class EntityRenderer implements IResourceManagerReloadListener
             {
                 f = f * 60.0F / 70.0F;
             }
+            
+            // Custom Zoom
+            if (com.tornhost.tornclient.mods.Zoom.isZooming) {
+            	f /= com.tornhost.tornclient.mods.Zoom.zoomLevel;
+            }
 
-            return f;
+            return f; // Vanilla code
         }
     }
 

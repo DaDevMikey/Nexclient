@@ -299,6 +299,14 @@ public class GuiIngame extends Gui
 
             this.mc.mcProfiler.endSection();
         }
+        
+        // Custom HUD Mods
+        for (com.tornhost.tornclient.mods.Mod mod : com.tornhost.tornclient.Client.getInstance().modManager.getMods()) {
+        	// Check if the mod is enabled AND if it's a HUD mod
+            if (mod.isEnabled() && mod instanceof com.tornhost.tornclient.mods.HudMod) {
+                ((com.tornhost.tornclient.mods.HudMod) mod).draw();
+            }
+        }
 
         Scoreboard scoreboard = this.mc.theWorld.getScoreboard();
         ScoreObjective scoreobjective = null;

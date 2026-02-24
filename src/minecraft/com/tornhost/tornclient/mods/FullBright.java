@@ -7,7 +7,6 @@ public class FullBright extends Mod {
 	
 	public FullBright() {
 		super("FullBright", "Removes all darkness from the game.");
-		this.setEnabled(true); // Hard code enabled for testing
 	}
 	
 	@Override
